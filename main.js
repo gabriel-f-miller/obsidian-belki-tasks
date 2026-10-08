@@ -9919,6 +9919,9 @@ var TaskBoardView = class extends import_obsidian18.ItemView {
           result.get(key).push(task);
         }
       }
+      const labelGroups = [...result.entries()].sort(([a], [b]) => a.localeCompare(b));
+      result.clear();
+      for (const [label, labelTasks] of labelGroups) result.set(label, labelTasks);
       if (noLabel.length > 0) result.set("No label", noLabel);
     } else if (this.settings.groupBy === "priority") {
       const order = ["P1", "P2", "P3", "P4"];
@@ -12461,7 +12464,7 @@ function backoffDelayForFailureCount(count) {
 // src/calendar/IcalCalendarProvider.ts
 var import_obsidian21 = require("obsidian");
 
-// node_modules/ical.js/dist/ical.js
+// node_modules/.pnpm/ical.js@2.2.1/node_modules/ical.js/dist/ical.js
 var ical_exports = {};
 __export(ical_exports, {
   default: () => ICALmodule

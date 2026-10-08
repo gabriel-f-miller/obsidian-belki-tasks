@@ -1028,6 +1028,10 @@ export class TaskBoardView extends ItemView {
           result.get(key)!.push(task);
         }
       }
+      // Sort sections independently of the task sort; keep each bucket intact.
+      const labelGroups = [...result.entries()].sort(([a], [b]) => a.localeCompare(b));
+      result.clear();
+      for (const [label, labelTasks] of labelGroups) result.set(label, labelTasks);
       if (noLabel.length > 0) result.set("No label", noLabel);
     } else if (this.settings.groupBy === "priority") {
       const order: Priority[] = ["P1", "P2", "P3", "P4"];
